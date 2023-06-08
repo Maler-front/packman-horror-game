@@ -1,4 +1,6 @@
-public interface IMovementModel : IModel
+namespace Movement
 {
-    public float GetSpeed();
+    public interface IMovementModel : IModel
+    {
+    }
 }
