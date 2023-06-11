@@ -16,7 +16,7 @@ namespace Movement.PlayerMovement
             PlayerMovementPresenter presenter = new PlayerMovementPresenter(view, model);
 
             view.Init(presenter);
-            model.Init(speed: _speed, rigidbody: GetComponent<Rigidbody>());
+            model.Init(speed: _speed, characterController: GetComponent<CharacterController>());
 
             enabled = false;
             return view;

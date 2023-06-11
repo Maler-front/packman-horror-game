@@ -28,12 +28,17 @@ namespace Movement.PlayerMovement
             }
         }
 
-        public Rigidbody Rigidbody { get; private set; }
+        public CharacterController CharacterController { get; private set; }
 
-        public void Init(float speed, Rigidbody rigidbody)
+        public void Init(float speed, CharacterController characterController)
         {
             Speed = speed;
-            Rigidbody = rigidbody;
+            CharacterController = characterController;
+        }
+
+        public Vector3 CalculateMoveDirection(Vector3 direction)
+        {
+            return Vector3.ClampMagnitude(direction * Speed, Speed);
         }
 
         public Action<float> SpeedChanged;
