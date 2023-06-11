@@ -15,14 +15,14 @@ namespace Movement.PlayerMovement
             Activate();
         }
 
-        public float GetSpeed()
+        public Vector3 CalculateMoveDirection(Vector3 direction)
         {
-            return _model.Speed;
+            return _model.CalculateMoveDirection(direction);
         }
 
-        public Rigidbody GetRigidbody()
+        public CharacterController GetCharacterController()
         {
-            return _model.Rigidbody;
+            return _model.CharacterController;
         }
 
         public void Activate()

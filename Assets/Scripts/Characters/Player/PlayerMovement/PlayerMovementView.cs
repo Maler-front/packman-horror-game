@@ -18,10 +18,9 @@ namespace Movement.PlayerMovement
 
         public void Move(Vector2 direction)
         {
-            direction = -1 * direction * _presenter.GetSpeed();
+            Vector3 motion = _presenter.CalculateMoveDirection(new Vector3(direction.x, 0f, direction.y));
 
-            Rigidbody rigidbody = _presenter.GetRigidbody();
-            rigidbody.AddRelativeForce(new Vector3(direction.x, 0f, direction.y), ForceMode.Impulse);
+            _presenter.GetCharacterController().Move(transform.TransformDirection(motion) * Time.deltaTime);
         }
     }
 }
