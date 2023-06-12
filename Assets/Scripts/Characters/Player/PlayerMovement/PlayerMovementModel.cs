@@ -17,6 +17,8 @@ namespace Movement.PlayerMovement
         private bool _isRunning = false;
         private bool _canRun = true;
 
+        public CharacterController CharacterController { get; private set; }
+
         public float CurrentSpeed
         {
             get
@@ -39,8 +41,6 @@ namespace Movement.PlayerMovement
                 _isRunning = _canRun && value;
             }
         }
-
-        public CharacterController CharacterController { get; private set; }
 
         public void Init(PlayerMovementPresenter presenter, CharacterController characterController, float walkSpeed = 5f, float runSpeed = 10f)
         {
