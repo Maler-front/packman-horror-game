@@ -1,46 +1,90 @@
-using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Movement.PlayerMovement
 {
     public class PlayerMovementModel : IMovementModel
     {
-        private float _speed = 5f;
+        private PlayerMovementPresenter _presenter;
 
-        public float Speed
+        private float _walkSpeed = 5f;
+        private float _runSpeed = 10f;
+        private float _maxStamina = 100f;
+        private float _staminaDecrement = 5f;
+        private float _staminaIncrement = 2.5f;
+
+        public float _stamina = 100f;
+        private bool _isRunning = false;
+        private bool _canRun = true;
+
+        public float CurrentSpeed
         {
             get
             {
-                return _speed;
+                if (_isRunning)
+                    return _runSpeed;
+
+                return _walkSpeed;
+            }
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return _isRunning;
             }
             set
             {
-                if (_speed < 0)
-                {
-                    return;
-                }
-                else
-                {
-                    _speed = value;
-                }
-
-                SpeedChanged?.Invoke(Speed);
+                _isRunning = _canRun && value;
             }
         }
 
         public CharacterController CharacterController { get; private set; }
 
-        public void Init(float speed, CharacterController characterController)
+        public void Init(PlayerMovementPresenter presenter, CharacterController characterController, float walkSpeed = 5f, float runSpeed = 10f)
         {
-            Speed = speed;
+            _presenter = presenter;
+            _walkSpeed = walkSpeed;
+            _runSpeed = runSpeed;
             CharacterController = characterController;
+
+            _presenter.StartCoroutine(StaminaRestoration());
         }
 
         public Vector3 CalculateMoveDirection(Vector3 direction)
         {
-            return Vector3.ClampMagnitude(direction * Speed, Speed);
+            float speed = _isRunning ? _runSpeed : _walkSpeed;
+
+            return Vector3.ClampMagnitude(direction * speed, speed);
         }
 
-        public Action<float> SpeedChanged;
+        private IEnumerator StaminaRestoration()
+        {
+            while (true)
+            {
+                yield return null;
+
+                if (_isRunning)
+                {
+                    _stamina = Mathf.Clamp(_stamina - _staminaDecrement * Time.fixedDeltaTime, 0f, _maxStamina);
+
+                    if (_stamina == 0f)
+                    {
+                        _canRun = false;
+                        _isRunning = false;
+                    }
+                }
+                else
+                {
+                    _stamina = Mathf.Clamp(_stamina + _staminaIncrement * Time.fixedDeltaTime, 0f, _maxStamina);
+
+                    if (_stamina == _maxStamina)
+                        _canRun = true;
+                }
+
+                Debug.Log($"stamina : {_stamina}");
+            }
+        }
     }
 }

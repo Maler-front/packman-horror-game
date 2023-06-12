@@ -22,5 +22,10 @@ namespace Movement.PlayerMovement
 
             _presenter.GetCharacterController().Move(transform.TransformDirection(motion) * Time.deltaTime);
         }
+
+        public void ChangeMoveMode(bool running)
+        {
+            _presenter.ChangeMoveMode(running);
+        }
     }
 }

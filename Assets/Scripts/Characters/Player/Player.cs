@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     private PlayerMovementView _movement;
     private InputAction _movementAction;
+    private InputAction _runAction;
+
     private PlayerLook _look;
     private InputAction _lookAction;
 
@@ -14,19 +16,25 @@ public class Player : MonoBehaviour
     {
         _look = GetComponent<PlayerLook>();
 
-        PlayerMovement movementStarter = GetComponent<PlayerMovement>();
-        _movement = movementStarter.Init();
-
         PlayerControls playerControls = new();
+
         _movementAction = playerControls.Player.Move;
+        _runAction = playerControls.Player.Run;
         _lookAction = playerControls.Player.Look;
+
         _movementAction.Enable();
         _lookAction.Enable();
+        _runAction.Enable();
+
+        PlayerMovement movementStarter = GetComponent<PlayerMovement>();
+        _movement = movementStarter.Init();
     }
 
     private void FixedUpdate()
     {
         PerformingActions.DoVector2Action(_movementAction, (direction) => _movement.Move(direction));
         PerformingActions.DoVector2Action(_lookAction, (direction) => _look.ChangeLook(direction));
+
+        _movement.ChangeMoveMode(_runAction.inProgress);
     }
 }

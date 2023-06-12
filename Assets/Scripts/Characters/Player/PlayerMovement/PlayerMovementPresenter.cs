@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -25,6 +27,16 @@ namespace Movement.PlayerMovement
             return _model.CharacterController;
         }
 
+        public void ChangeMoveMode(bool running)
+        {
+            _model.IsRunning = running;
+        }
+
+        public Coroutine StartCoroutine(IEnumerator action)
+        {
+            return _view.StartCoroutine(action);
+        }
+
         public void Activate()
         {
             return;
@@ -32,7 +44,7 @@ namespace Movement.PlayerMovement
 
         public void Deactivate()
         {
-            throw new System.NotImplementedException();
+            return;
         }
     }
 }

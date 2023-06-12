@@ -5,7 +5,8 @@ namespace Movement.PlayerMovement
     [RequireComponent(typeof(Rigidbody))]
     public class PlayerMovement : MonoBehaviour
     {
-        [SerializeField] [Range(0, 50f)] private float _speed = -1f;
+        [SerializeField] [Range(0, 50f)] private float _walkSpeed = 5f;
+        [SerializeField] [Range(0, 100f)] private float _runSpeed = 10f;
 
         public PlayerMovementView Init()
         {
@@ -16,7 +17,7 @@ namespace Movement.PlayerMovement
             PlayerMovementPresenter presenter = new PlayerMovementPresenter(view, model);
 
             view.Init(presenter);
-            model.Init(speed: _speed, characterController: GetComponent<CharacterController>());
+            model.Init(presenter: presenter, walkSpeed: _walkSpeed, runSpeed: _runSpeed, characterController: GetComponent<CharacterController>());
 
             enabled = false;
             return view;
