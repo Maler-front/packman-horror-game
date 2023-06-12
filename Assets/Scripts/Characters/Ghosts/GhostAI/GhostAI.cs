@@ -2,13 +2,8 @@ using UnityEngine;
 
 public abstract class GhostAI
 {
-    protected Transform _target;
+    protected static Transform _target;
 
-    public void Init(Transform target)
-    {
-        _target = target;
-        return;
-    }
-
+    public static void Init(Transform target) => _target = target;
     public abstract Vector3 WhereToMove();
 }

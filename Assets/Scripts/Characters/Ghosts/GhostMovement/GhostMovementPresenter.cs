@@ -21,7 +21,7 @@ public class GhostMovementPresenter : IMovementPresenter
 
     public void Activate()
     {
-        throw new System.NotImplementedException();
+        return;
     }
 
     public void Deactivate()

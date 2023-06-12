@@ -12,6 +12,6 @@ public class GhostMovementView : MonoBehaviour, IMovementView
 
     public void Move(Vector2 direction)
     {
-        _presenter.GetNavMeshAgent().destination = direction;
+        _presenter.GetNavMeshAgent().destination = new Vector3(direction.x, transform.position.y, direction.y);
     }
 }
