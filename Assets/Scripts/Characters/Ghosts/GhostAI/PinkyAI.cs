@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class PinkyAI : GhostAI
 {
-    private float _distance = 10f;
-    private float _minDistance = 20f;
+    private const float _distance = 20f;
+    private const float _minDistance = 30f;
 
-    public PinkyAI(Transform transform) : base(transform) { }
-
-    public override Vector3 WhereToMove()
+    protected override Vector3 Hunt()
     {
-        if(Vector3.Distance(_target.position, _transform.position) <= _minDistance)
+        if (Vector3.Distance(_target.position, _transform.position) <= _minDistance)
         {
             return _target.position;
         }

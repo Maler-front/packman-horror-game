@@ -16,11 +16,13 @@ public class GhostsStarter : MonoBehaviour
         if (_ghostsTarget == null)
             Debug.LogError("You forgot to set a target for ghosts");
 
-        GhostAI.Init(_ghostsTarget);
+        GhostAI.SetTarget(_ghostsTarget);
 
         for(int i = 0; i < _ghosts.Count; i++)
         {
             GhostAIInjector.SetGhostAI(_ghosts[i], _ghostsTypes[i]);
         }
+
+        enabled = false;
     }
 }

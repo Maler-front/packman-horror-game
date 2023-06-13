@@ -11,13 +11,14 @@ public class Ghost : MonoBehaviour
         _movement = GetComponent<GhostMovement>().Init();
     }
 
-    public void Init(GhostAI ghostAI)
+    public void Inject(GhostAI ghostAI)
     {
         _ghostAI = ghostAI;
     }
 
     private void FixedUpdate()
     {
+        _ghostAI.Update();
         _movement.Move(Converter.Vector3ToVector2InXZ(_ghostAI.WhereToMove()));
     }
 }
