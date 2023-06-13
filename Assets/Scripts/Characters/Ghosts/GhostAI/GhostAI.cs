@@ -10,17 +10,26 @@ public abstract class GhostAI
 
     private static State _state;
 
-    protected const float _timeBetweenHuntAndChill = 15f;
-    protected float _chillTimeLeft;
+    protected const float _timeBetweenChillAndHunt = 15f;
+    protected static float _chillTimeLeft;
 
     public void Init(Transform transform, Vector3 homePoint)
     {
         _transform = transform;
         _homePoint = homePoint;
+
+        EventBus.Instance.Subscribe<CherryPickedUp>((signal) => ChangeState(State.Chill));
     }
 
     public static void SetTarget(Transform target) => _target = target;
-    public static void ChangeState(State newState) => _state = newState;
+    public static void ChangeState(State newState)
+    {
+        if (_state == State.Chill)
+        {
+            _chillTimeLeft = _timeBetweenChillAndHunt;
+        }
+        _state = newState;
+    }
 
     public Vector3 WhereToMove()
     {
