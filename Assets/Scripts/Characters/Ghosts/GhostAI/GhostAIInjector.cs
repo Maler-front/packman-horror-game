@@ -6,12 +6,13 @@ public static class GhostAIInjector
         {
             case Ghosts.Blinky:
                 {
-                    target.Init(new BlinkyAI());
+                    target.Init(new BlinkyAI(target.transform));
                     break;
                 }
             case Ghosts.Pinky:
                 {
-                    throw new System.NotImplementedException();
+                    target.Init(new PinkyAI(target.transform));
+                    break;
                 }
         }
     }
