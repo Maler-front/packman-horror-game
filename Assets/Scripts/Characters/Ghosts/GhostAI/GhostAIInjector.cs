@@ -19,6 +19,11 @@ public static class GhostAIInjector
                     target.Init(new InkyAI(target.transform));
                     break;
                 }
+            case Ghosts.Clyde:
+                {
+                    target.Init(new ClydeAI(target.transform));
+                    break;
+                }
         }
     }
 
@@ -26,6 +31,7 @@ public static class GhostAIInjector
     {
         Blinky,
         Pinky,
-        Inky
+        Inky,
+        Clyde
     }
 }
