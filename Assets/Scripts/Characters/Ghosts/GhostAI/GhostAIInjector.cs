@@ -14,12 +14,18 @@ public static class GhostAIInjector
                     target.Init(new PinkyAI(target.transform));
                     break;
                 }
+            case Ghosts.Inky:
+                {
+                    target.Init(new InkyAI(target.transform));
+                    break;
+                }
         }
     }
 
     public enum Ghosts
     {
         Blinky,
-        Pinky
+        Pinky,
+        Inky
     }
 }
