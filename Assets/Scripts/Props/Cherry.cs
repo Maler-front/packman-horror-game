@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class Cherry : MonoBehaviour
+public class Cherry : MonoBehaviour, IPickableUp
 {
-    private void OnTriggerEnter(Collider other)
+    public void PickUp(object caller)
     {
-        if (other.CompareTag("Player"))
-        {
-            EventBus.Instance.Invoke<CherryPickedUp>(new CherryPickedUp());
-            Destroy(gameObject);
-        }
+        EventBus.Instance.Invoke<CherryPickedUp>(new CherryPickedUp());
+        Destroy(gameObject);
     }
 }

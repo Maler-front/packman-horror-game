@@ -18,13 +18,13 @@ public abstract class GhostAI
         _transform = transform;
         _homePoint = homePoint;
 
-        EventBus.Instance.Subscribe<CherryPickedUp>((signal) => ChangeState(State.Chill));
+        EventBus.Instance.Subscribe<CherryPickedUp>((signal) => ChangeState(State.Hide));
     }
 
     public static void SetTarget(Transform target) => _target = target;
     public static void ChangeState(State newState)
     {
-        if (_state == State.Chill)
+        if (_state == State.Hide)
         {
             _chillTimeLeft = _timeBetweenChillAndHunt;
         }
