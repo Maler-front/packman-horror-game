@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Movement.PlayerMovement
 {
@@ -7,6 +8,7 @@ namespace Movement.PlayerMovement
     {
         [SerializeField] [Range(0, 50f)] private float _walkSpeed = 5f;
         [SerializeField] [Range(0, 100f)] private float _runSpeed = 10f;
+        [SerializeField] private Slider _staminaSlider;
 
         public PlayerMovementView Init()
         {
@@ -16,7 +18,7 @@ namespace Movement.PlayerMovement
             PlayerMovementModel model = new();
             PlayerMovementPresenter presenter = new PlayerMovementPresenter(view, model);
 
-            view.Init(presenter);
+            view.Init(presenter, _staminaSlider);
             model.Init(presenter: presenter, walkSpeed: _walkSpeed, runSpeed: _runSpeed, characterController: GetComponent<CharacterController>());
 
             enabled = false;
