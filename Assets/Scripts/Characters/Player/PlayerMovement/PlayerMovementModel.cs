@@ -83,7 +83,7 @@ namespace Movement.PlayerMovement
                         _canRun = true;
                 }
 
-                Debug.Log($"stamina : {_stamina}");
+                _presenter.ShowStamina(_stamina / _maxStamina);
             }
         }
     }

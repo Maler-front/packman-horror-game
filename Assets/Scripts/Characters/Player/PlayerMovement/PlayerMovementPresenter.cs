@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -44,6 +45,11 @@ namespace Movement.PlayerMovement
         public void Deactivate()
         {
             return;
+        }
+
+        public void ShowStamina(float stamina)
+        {
+            _view.ShowStamina(stamina);
         }
     }
 }

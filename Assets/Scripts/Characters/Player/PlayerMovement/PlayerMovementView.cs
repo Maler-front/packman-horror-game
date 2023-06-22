@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Movement.PlayerMovement
 {
@@ -6,7 +8,9 @@ namespace Movement.PlayerMovement
     {
         private PlayerMovementPresenter _presenter;
 
-        public void Init(PlayerMovementPresenter presenter)
+        private Slider _staminaSlider;
+
+        public void Init(PlayerMovementPresenter presenter, Slider staminaSlider)
         {
             if(presenter == null)
             {
@@ -14,6 +18,9 @@ namespace Movement.PlayerMovement
                 return;
             }
             _presenter = presenter;
+
+            _staminaSlider = staminaSlider;
+            _staminaSlider.value = 1;
         }
 
         public void Move(Vector2 direction)
@@ -26,6 +33,11 @@ namespace Movement.PlayerMovement
         public void ChangeMoveMode(bool running)
         {
             _presenter.ChangeMoveMode(running);
+        }
+
+        internal void ShowStamina(float stamina)
+        {
+            _staminaSlider.value = stamina;
         }
     }
 }
