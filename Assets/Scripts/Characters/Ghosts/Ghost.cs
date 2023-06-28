@@ -21,4 +21,12 @@ public class Ghost : MonoBehaviour
         _ghostAI.Update();
         _movement.Move(Converter.Vector3ToVector2InXZ(_ghostAI.WhereToMove()));
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            EventBus.Instance.Invoke<GameEnd>(new GameEnd(true));
+        }
+    }
 }

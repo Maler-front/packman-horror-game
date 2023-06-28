@@ -18,8 +18,8 @@ public class PointCounter : MonoBehaviour
     {
         _currentScore += score;
 
-        /*if (_currentScore <= _pointsToWin)
-            EventBus.Instance.Invoke<GameWin>(new GameWin());*/
+        if (_currentScore >= _pointsToWin)
+            EventBus.Instance.Invoke<GameEnd>(new GameEnd(false));
 
         _scoreText.text = (_pointsToWin - _currentScore).ToString();
     }
