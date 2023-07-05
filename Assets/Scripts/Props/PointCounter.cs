@@ -11,16 +11,21 @@ public class PointCounter : MonoBehaviour
     private void Start()
     {
         _scoreText.text = (_pointsToWin - _currentScore).ToString();
-        EventBus.Instance.Subscribe<PointPickedUp>((signal) => IncreaseScore(1));
+        EventBus.Instance.Subscribe<PointPickedUp>(IncreaseScore);
     }
 
-    private void IncreaseScore(int score)
+    private void IncreaseScore(PointPickedUp signal)
     {
-        _currentScore += score;
+        _currentScore += 1;
 
         if (_currentScore >= _pointsToWin)
             EventBus.Instance.Invoke<GameEnd>(new GameEnd(false));
 
         _scoreText.text = (_pointsToWin - _currentScore).ToString();
+    }
+
+    private void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<PointPickedUp>(IncreaseScore);
     }
 }

@@ -23,7 +23,7 @@ public class EventBus
         _events = new();
     }
 
-    private readonly Dictionary<string, List<object>> _events;
+    private readonly Dictionary<string, List<object>> _events = new Dictionary<string, List<object>>();
 
     public void Subscribe<T>(Action<T> action)
     {
@@ -43,10 +43,7 @@ public class EventBus
         string key = typeof(T).Name;
         if (_events.ContainsKey(key))
         {
-            if (_events[key].Contains(action))
-            {
-                _events[key].Remove(key);
-            }
+            _events[key].Remove(action);
         }
         else
         {

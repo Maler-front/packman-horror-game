@@ -29,4 +29,9 @@ public class Ghost : MonoBehaviour
             EventBus.Instance.Invoke<GameEnd>(new GameEnd(true));
         }
     }
+
+    private void OnDisable()
+    {
+        _ghostAI.OnDisable();
+    }
 }

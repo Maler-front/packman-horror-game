@@ -10,8 +10,8 @@ public abstract class GhostAI
 
     private static State _state;
 
-    protected const float _timeBetweenChillAndHunt = 15f;
-    protected static float _chillTimeLeft;
+    protected const float _timeBetweenHideAndHunt = 15f;
+    protected static float _hideTimeLeft;
 
     public void Init(Transform transform, Vector3 homePoint)
     {
@@ -19,6 +19,7 @@ public abstract class GhostAI
         _homePoint = homePoint;
 
         EventBus.Instance.Subscribe<CherryPickedUp>((signal) => ChangeState(State.Hide));
+        ChangeState(State.Hunt);
     }
 
     public static void SetTarget(Transform target) => _target = target;
@@ -26,7 +27,7 @@ public abstract class GhostAI
     {
         if (_state == State.Hide)
         {
-            _chillTimeLeft = _timeBetweenChillAndHunt;
+            _hideTimeLeft = _timeBetweenHideAndHunt;
         }
         _state = newState;
     }
@@ -39,10 +40,6 @@ public abstract class GhostAI
                 {
                     return Hunt();
                 }
-            case State.Chill:
-                {
-                    return Chill();
-                }
             case State.Hide:
                 {
                     return Hide();
@@ -50,11 +47,6 @@ public abstract class GhostAI
         }
         Debug.LogError("State error in GhostAI");
         return Vector3.zero;
-    }
-
-    private Vector3 Chill()
-    {
-        return _homePoint;
     }
 
     private Vector3 Hide()
@@ -71,10 +63,10 @@ public abstract class GhostAI
 
     public void Update()
     {
-        if(_state == State.Chill)
+        if(_state == State.Hide)
         {
-            _chillTimeLeft -= Time.fixedDeltaTime;
-            if(_chillTimeLeft <= 0f)
+            _hideTimeLeft -= Time.fixedDeltaTime;
+            if(_hideTimeLeft <= 0f)
             {
                 ChangeState(State.Hunt);
             }
@@ -86,5 +78,10 @@ public abstract class GhostAI
         Hunt,
         Chill,
         Hide
+    }
+
+    public void OnDisable()
+    {
+        EventBus.Instance.Unsubscribe<CherryPickedUp>((signal) => ChangeState(State.Hide));
     }
 }
